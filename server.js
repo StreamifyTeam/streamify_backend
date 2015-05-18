@@ -30,8 +30,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 //Once we're connected to mongo, share the connection and start our server
 db.once('open', function(callback) {
   console.log('Connected to mongo');
-  server = app.listen(3000, function() {
-    console.log('Server started.');
+  server = app.listen(process.env.PORT || 3000, function() {
+    console.log('Server started on port ' + (process.env.PORT || 3000));
     serverEmitter.emit('started');
   });
 });
