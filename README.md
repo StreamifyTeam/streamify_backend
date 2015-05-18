@@ -7,7 +7,7 @@
 
 
 | Field Name | Value Type | Description          |
-| -------------| ----------- |
+| -------------| ----------- | ----------- |
 | _id          |  id      | Mongo DB internal id|
 | username     |  string  |  not unique|
 | email        |  string  |  unique   |
@@ -31,8 +31,8 @@ favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
 | Field Name | Value Type | Description          |
 | -----------| ----------- | ----------------|
 | _id        |  id    | Mongo DB internal id|
-| name     |  string  |  Name of the Playlist; not unique |
-| songs       |  Array of Songs |  Songs in the playlist; Stored as: [_id, _id...]  |
+| name       |  string  |  Name of the Playlist; not unique |
+| songs      |  Array of Songs |  Songs in the playlist; Stored as: [_id, _id...]  |
 | collaborators   |  Array of Users  |  Stored as: [_id, _id...] |
 | dateCreated   |  Date  |   |
 | createdBy  |  string  |  User's name (not user id) |
@@ -49,7 +49,7 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 
 ####Songs /api/songs/...
 
-| Field Name | Value Type | Description          |
+| Field Name | Value Type | Description       |
 | -----------| ----------- | ----------------|
 | _id        |  id    | Mongo DB internal id|
 | artist     |  string  |  Name of Artist |
