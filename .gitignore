@@ -28,6 +28,3 @@ node_modules
 
 #mongo database
 database
-
-#dev usernames and passwords
-credentials.js
