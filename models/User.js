@@ -51,9 +51,12 @@ userSchema.methods.owns = function(obj) {
 	return obj.authorId;
 };
 
+userSchema.methods.addToFavorites = function(fav, next) {
+	
+}
+
 userSchema.path('userType').validate(function (value) {
 	return /spotify|local/i.test(value);
 }, 'Invalid userType');
 
 module.exports = mongoose.model('User', userSchema);
-

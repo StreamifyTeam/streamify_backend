@@ -6,7 +6,7 @@ var bodyparser = require('body-parser');
 module.exports = function(router, passport) {
 		router.use(bodyparser.json());
 
-		router.post('/create_user', function(req, res) {
+		router.post('/user/create_user', function(req, res) {
 			var newUserData = JSON.parse(JSON.stringify(req.body));
 			delete newUserData.email;
 			delete newUserData.password;
@@ -39,7 +39,7 @@ module.exports = function(router, passport) {
 			};
 		});
 
-		router.get('/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
+		router.get('/user/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
 			req.user.generateToken(process.env.APP_SECRET, function (err, token) {
 				if (err) {
 					console.log(err);
