@@ -1,5 +1,5 @@
 # Streamify Backend
-
+[![Build Status](https://travis-ci.org/StreamifyTeam/streamify_backend.svg?branch=master)](https://travis-ci.org/StreamifyTeam/streamify_backend)
 
 ##Mongo DB Schema & Methods
 
