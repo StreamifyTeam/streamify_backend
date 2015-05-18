@@ -32,8 +32,9 @@
     "type": "git",
     "url": "https://github.com/StreamifyTeam/streamify_backend.git"
   },
-  "author": "hmorgan471@gmail.com",
-  "license": "ISC",
+  "contributors": ["Henry Morgan", "Jowell Villasin", "Rainer Oviir",
+                   "Truyen Nguyen", "Josh Nagel"],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/StreamifyTeam/streamify_backend/issues"
   },
