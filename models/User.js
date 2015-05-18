@@ -55,8 +55,5 @@ userSchema.path('userType').validate(function (value) {
 	return /spotify|local/i.test(value);
 }, 'Invalid userType');
 
-userSchema.path('username').validate(function (value) {
-
-})
 module.exports = mongoose.model('User', userSchema);
 
