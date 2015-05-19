@@ -49,4 +49,9 @@ module.exports = function(router, passport) {
 				res.json({token: token});
 			});
 		});
+
+		router.get('/user/fav', function(req, res) {
+			req.user.addToFavorites
+			res.json({msg: 'test'})
+		});
 };

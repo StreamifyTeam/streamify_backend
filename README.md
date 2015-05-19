@@ -9,21 +9,31 @@
 | Field Name | Value Type | Description          |
 | -------------| ----------- | ----------- |
 | _id          |  id      | Mongo DB internal id|
-| username     |  string  |  not unique|
-| email        |  string  |  unique   |
+| username     |  string  |  unique    |
+| email        |  string  |  not unique|
 | password     |  string  |     |
 | userType     |  string  |  _Restricted_ to [spotify, local]|
 | favorites    |  Array of Songs  |  Stored as: [_id, _id...] |
 | history      |  string  |    |
 | uniqueHash   |  string  | Used to create the EAT; easier to invalidate users |
 
-#####Example
+#####Examples
 
 Favorites can be accessed with
 ```
 
-user =  db.users.findOne({email: test@example.com});
+user =  db.users.findOne({username: example});
 favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
+
+```
+
+
+```
+Create:
+/api/users/create_user post {username: 'example', password: 'pass'}
+
+Sign In:
+/api/users/sign_in -u example:pass
 
 ```
 
