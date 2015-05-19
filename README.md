@@ -61,9 +61,9 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 
 | Field Name | Value Type | Description       |
 | -----------| ----------- | ----------------|
-| songID        |  id    | Mongo DB internal id|
-| artist     |  string  |  Name of Artist |
-| name       |  string  |  Name of the song     |
+| songID        |  id    | Mongo DB internal id, required|
+| artist     |  string  |  Name of Artist, reuired|
+| name       |  string  |  Name of the song, unique|
 | duration   |  number  |  The track length in miliseconds|
 | album   |  string  |   Name of the Album|
 | coverArt  |  string  |  URL to coverArt |
