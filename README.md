@@ -72,7 +72,7 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 
 | Field Name | Value Type | Description       |
 | -----------| ----------- | ----------------|
-| artist     |  string  |  Name of Artist, reuired|
+| artist     |  string  |  Name of Artist, required|
 | name       |  string  |  Name of the song, unique|
 | duration   |  number  |  The track length in miliseconds|
 | album   |  string  |   Name of the Album|
@@ -81,3 +81,9 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 | genre   |  string  | stored in spotify on the album object |
 
 API
+Get all songs:
+	GET: /api/songs get
+Find a song by song name
+	GET: /api/songs/SONGNAME get
+Add a new song:
+	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
