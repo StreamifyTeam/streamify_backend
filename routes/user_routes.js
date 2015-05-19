@@ -35,7 +35,7 @@ module.exports = function(router, passport) {
             return res.status(500).json({msg: 'error generating token'});
           }
 
-          res.json({token: token});  
+          res.json({email: newUser.email || 'no email provided', username: newUser.username, token: token});
         });
       });
       }
