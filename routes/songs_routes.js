@@ -7,7 +7,7 @@ module.exports = function(router){
 	router.use(bodyparser.json());
 
 	//get all songs
-	router.get('/songs', function(req, res){
+	router.get('/songs', function(req, res) {
 		Song.find({}, function(err, data){
 			if(err){
 				console.log(err);
@@ -18,9 +18,9 @@ module.exports = function(router){
 		});
 	});
 
-	//find a song by song name
-	router.get('/songs/:songName', function(req, res){
-		Song.findOne({name: req.params.songName}, function(err, data){
+	//find a song by spotifyID
+	router.get('/songs/:id', function(req, res) {
+		Song.findOne({spotifyID: req.params.id}, function(err, data){
 			if(err){
 				console.log(err);
 				return res.status(500).json({msg: 'internal server error'});
@@ -31,7 +31,7 @@ module.exports = function(router){
 	});
 
 	//add a new song
-	router.post('/songs', function(req, res){
+	router.post('/songs', function(req, res) {
 		var newSong = new Song(req.body);
 		newSong.save(function(err, data){
 			if(err){
