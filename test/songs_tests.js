@@ -1,6 +1,6 @@
 'use strict';
 
-process.env.MONGO_URI = 'mongodb://localhost/dbtest';
+process.env.MONGO_URI = 'mongodb://localhost/database';
 require('../server.js');
 var mongoose = require('mongoose');
 var chai = require('chai');
@@ -20,7 +20,7 @@ describe('Song REST api', function(){
 	it('should be able to create a new song', function(done){
 		chai.request('localhost:3000')
 			.post('/api/songs')
-			.send({songID: "1", artist: 'test author', name: 'This is Streamify', album: 'Summer'})
+			.send({artist: 'test author', name: 'This is Streamify', album: 'Summer'})
 			.end(function(err, res){
 				expect(err).to.eql(null);
 				expect(res.body.artist).to.eql('test author');
