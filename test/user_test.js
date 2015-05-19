@@ -8,9 +8,16 @@ var mongoose = require('mongoose');
 var User = require('../models/User');
 chai.use(chaiHttp);
 
-require('../server.js'); //run our server
+var server = require('../server.js'); //run our server
 
 describe('User Testing', function() {
+
+  before(function(done) {
+    server.once('started', function() {
+      done();
+    });
+  });
+
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();

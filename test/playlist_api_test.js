@@ -9,8 +9,6 @@ var mongoose = require('mongoose');
 
 chai.use(chaiHttp);
 
-var server = require('../server.js'); //run our server
-
 describe('Playlist API', function() {
   var testPlaylistID;
 
