@@ -17,7 +17,19 @@ module.exports = function(router){
 			res.json(data);
 		});
 	});
-	
+
+	//find a song by song name
+	router.get('/songs/:songName', function(req, res){
+		Song.findOne({name: req.params.songName}, function(err, data){
+			if(err){
+				console.log(err);
+				return res.status(500).json({msg: 'internal server error'});
+			}
+
+			res.json(data);
+		});
+	});
+
 	//add a new song
 	router.post('/songs', function(req, res){
 		var newSong = new Song(req.body);
