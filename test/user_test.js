@@ -21,10 +21,10 @@ describe('User Testing', function() {
       .send({email: 'user@test.com', username: 'testUser', password: 'foobar'})
       .end(function(err, res) {
         testToken = res.body.token;
-        /*expect(err).to.eql(null);
+        expect(err).to.eql(null);
         expect(res.body.username).to.eql('testUser');
         expect(res.body.token).to.not.eql('undefined');
-        expect(res.status).to.eql(200);*/
+        expect(res.status).to.eql(200);
         done();
       });
     }); //end server.once('started')
