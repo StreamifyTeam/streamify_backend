@@ -2,5 +2,7 @@
     "preset": "google",
     "requireCurlyBraces": null,
     "disallowKeywordsOnNewLine": null,
-    "verbose": true
+    "verbose": true,
+    "validateIndentation": null,
+    "maximumLineLength": null
 }

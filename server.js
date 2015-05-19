@@ -4,13 +4,27 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var EventEmitter = require('events').EventEmitter;
+var passport = require('passport');
+var usersRoutes = express.Router();
+var songsRoutes = express.Router();
+
+process.env.APP_SECRET = process.env.APP_SECRET || 'changethis!';
 
 //Routes (and app.use calls) go here
 var discovery = express.Router();
 require('./routes/discovery_routes')(discovery);
 app.use('/api', discovery);
+app.use(passport.initialize());
+require('./lib/passport_strategy')(passport);
+require('./routes/user_routes')(usersRoutes, passport);
+app.use('/api', usersRoutes);
 
+require('./routes/songs_routes')(songsRoutes);
+app.use('/api', songsRoutes);
 
+var playlistRoutes = express.Router();
+require('./routes/playlist_routes.js')(playlistRoutes);
+app.use('/api', playlistRoutes);
 
 //Prepare our emitter (to notify Mocha that we're ready to accept connections)
 var serverEmitter = module.exports = exports = new EventEmitter();

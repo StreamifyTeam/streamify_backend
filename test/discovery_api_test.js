@@ -9,12 +9,6 @@ var server = require('../server.js');
 
 describe('Music Discovery for the win', function() {
 
-  before(function(done) {
-    server.once('started', function() {
-      done();
-    });
-  });
-
   it('should search for an artist', function(done) {
     chai.request('localhost:3000')
       .get('/api/discovery/artist/snsd')
