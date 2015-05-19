@@ -14,11 +14,6 @@ var server = require('../server.js'); //run our server
 describe('Playlist API', function() {
   var testPlaylistID;
 
-  before(function(done) {
-    server.once('started', function() {
-      done();
-    });
-  });
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       //mongoose.connection.db.emit('first tests done');

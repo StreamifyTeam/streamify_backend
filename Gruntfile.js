@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       test: {
         options: {
         },
-        src: ['test/**/*.js']
+        src: ['test/user_test.js', 'test/**/*.js']
       }
     }, //end mochaTest
 
