@@ -9,9 +9,10 @@
   "dependencies": {
     "body-parser": "^1.12.4",
     "express": "^4.12.3",
+    "mongoose": "^4.0.2",
     "passport": "^0.2.1",
     "passport-http": "^0.2.2",
-    "mongoose": "^4.0.2"
+    "request": "^2.55.0"
   },
   "devDependencies": {
     "chai": "^2.3.0",
@@ -32,8 +33,13 @@
     "type": "git",
     "url": "https://github.com/StreamifyTeam/streamify_backend.git"
   },
-  "contributors": ["Henry Morgan", "Jowell Villasin", "Rainer Oviir",
-                   "Truyen Nguyen", "Josh Nagel"],
+  "contributors": [
+    "Henry Morgan",
+    "Jowell Villasin",
+    "Rainer Oviir",
+    "Truyen Nguyen",
+    "Josh Nagel"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/StreamifyTeam/streamify_backend/issues"
