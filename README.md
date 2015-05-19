@@ -93,3 +93,43 @@ Add a new song:
 	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
 
 ```
+
+####Discovery  
+##### Endpoints
+
+| Endpoint                   | Request | Response    |
+| ---------------------------| ------- | ------------|
+|/api/discovery/artist/:name | GET     | See Below   |
+|/api/discovery/genre/:name  | GET     | See Below   |
+|/api/discovery/related/:id  | GET     | See Below   |
+
+###### Response format
+```JSON
+{artist: [
+  {id: id,
+  name: name,
+  popularity: popularity,
+  url: url
+  }, ...
+  ]}
+```
+| Field Name | Value Type | Description          |
+| -------------| ----------- | ----------- |
+| _id          |  id      | Mongo DB internal id|
+| username     |  string  |  unique    |
+| email        |  string  |  not unique|
+| password     |  string  |     |
+| userType     |  string  |  _Restricted_ to [spotify, local]|
+| favorites    |  Array of Songs  |  Stored as: [_id, _id...] |
+| history      |  string  |    |
+| uniqueHash   |  string  | Used to create the EAT; easier to invalidate users |
+
+#####Examples
+
+Favorites can be accessed with
+```
+
+user =  db.users.findOne({username: example});
+favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
+
+```
