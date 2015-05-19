@@ -7,10 +7,7 @@ var EventEmitter = require('events').EventEmitter;
 
 //Routes (and app.use calls) go here
 var discovery = express.Router();
-
 require('./routes/discovery_routes')(discovery);
-
-
 app.use('/api', discovery);
 
 
