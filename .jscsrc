@@ -3,5 +3,6 @@
     "requireCurlyBraces": null,
     "disallowKeywordsOnNewLine": null,
     "verbose": true,
-    "validateIndentation": null
+    "validateIndentation": null,
+    "maximumLineLength": null
 }

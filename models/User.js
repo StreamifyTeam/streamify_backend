@@ -14,29 +14,26 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.methods.generateHash = function(password, salt, next) {
-
 	bcrypt.genSalt(salt, function(err, salt) {
 		if (err) {
 			return next(err);
 		}
 
-	bcrypt.hash(password, salt, function(err, hash) {
-		if (err) {
-			return next(err);
-		}
-
-		next(null, hash);
+		bcrypt.hash(password, salt, function(err, hash) {
+			if (err) {
+				return next(err);
+			}
+			next(null, hash);
+		});
 	});
-	})
 };
 
 userSchema.methods.checkPassword = function(password, cb) {
-
 	bcrypt.compare(password, this.password, function(err, response) {
 		if (err) {
 			return cb(err);
 		}
-		
+
 		console.log(response);
 		cb(null, response);
 	});
@@ -54,9 +51,9 @@ userSchema.methods.owns = function(obj) {
 userSchema.methods.addToFavorites = function(fav, next) {
 	this.favorites.push(fav);
 	next();
-}
+};
 
-userSchema.path('userType').validate(function (value) {
+userSchema.path('userType').validate(function(value) {
 	return /spotify|local/i.test(value);
 }, 'Invalid userType');
 
