@@ -72,7 +72,7 @@ describe('User Testing', function() {
     .get('/api/user/fav')
     .send({eat: testToken})
     .end(function(err, res) {
-      expect(res.body.msg).to.eql('Favorites: ' + 'testFavorite')
+      expect(res.body.msg).to.eql('Favorites: ' + 'testFavorite');
       expect(err).to.eql(null);
       done();
     });
@@ -86,6 +86,6 @@ describe('User Testing', function() {
       expect(res.body.msg).to.eql('testFavorite' + ' has been deleted');
       expect(err).to.eql(null);
       done();
-    })
+    });
   });
 });
