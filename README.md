@@ -30,10 +30,10 @@ favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
 
 ```
 Create:
-/api/users/create_user post {username: 'example', password: 'pass'}
+/api/user/create_user post {username: 'example', password: 'pass'}
 
 Sign In:
-/api/users/sign_in -u example:pass
+/api/user/sign_in -u example:pass
 
 ```
 
