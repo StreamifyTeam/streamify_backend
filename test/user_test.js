@@ -46,4 +46,12 @@ describe('Favorites Testing', function() {
       done();
     });
   });
+
+  it('checksosmething', function(done) {
+    chai.request('localhost:3000/api/user')
+    .post('/create_user')
+    .send({username: 'rainer', password: 'foobar'})
+    .get({r})
+    console.log(res.json);
+  });
 });
