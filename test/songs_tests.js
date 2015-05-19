@@ -1,7 +1,7 @@
 'use strict';
 
 process.env.MONGO_URI = 'mongodb://localhost/database';
-require('../server.js');
+require('../server.js'); //run our server
 var mongoose = require('mongoose');
 var chai = require('chai');
 var chaihttp = require('chai-http');
