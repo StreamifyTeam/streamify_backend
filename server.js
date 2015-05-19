@@ -6,8 +6,9 @@ var mongoose = require('mongoose');
 var EventEmitter = require('events').EventEmitter;
 
 //Routes (and app.use calls) go here
-
-
+var playlistRoutes = express.Router();
+require('./routes/playlist_routes.js')(playlistRoutes);
+app.use('/api', playlistRoutes);
 
 //Prepare our emitter (to notify Mocha that we're ready to accept connections)
 var serverEmitter = module.exports = exports = new EventEmitter();
