@@ -60,11 +60,32 @@ Favorites:
 
 #####Example
 
-songs can be accessed with
+playlists can be accessed with
 ```
 
 playlist =  db.playlists.findOne({_id: playlist's ID});
 favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
+
+```
+
+```
+API: (currently getting updated to authenticate users)
+
+  GET:
+    Search for playlists:
+      /api/playlist/ get {searchString: "search string"}
+
+  POST:
+    Create playlist:
+      /api/create_playlist/ post {name: "playlistname"}
+    Add song to playlist:
+      /api/playlist/ post {id: playlistID, song: spotifySongID}
+      
+  DELETE:
+    Delete playlist:
+      /api/delete_playlist/ del {id: playlistID}
+    Delete song from playlist:
+      /api/playlist/ del {name: "playlistname", song: spotifySongID}
 
 ```
 
