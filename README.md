@@ -104,7 +104,7 @@ Add a new song:
 |/api/discovery/related/:id  | GET     | See Below   |
 
 ###### Response format
-```json
+```
 {artists: [
   {id: id,
   name: name,
@@ -112,24 +112,4 @@ Add a new song:
   url: url
   }, ...
   ]}
-```
-| Field Name | Value Type | Description          |
-| -------------| ----------- | ----------- |
-| _id          |  id      | Mongo DB internal id|
-| username     |  string  |  unique    |
-| email        |  string  |  not unique|
-| password     |  string  |     |
-| userType     |  string  |  _Restricted_ to [spotify, local]|
-| favorites    |  Array of Songs  |  Stored as: [_id, _id...] |
-| history      |  string  |    |
-| uniqueHash   |  string  | Used to create the EAT; easier to invalidate users |
-
-#####Examples
-
-Favorites can be accessed with
-```
-
-user =  db.users.findOne({username: example});
-favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
-
 ```
