@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var User = require('../models/User');
 chai.use(chaiHttp);
 
-require('../server.js'); //run our server
+require('../server.js');
 
 describe('User Testing', function() {
 
