@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var srcFiles = ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'];
+  var srcFiles = ['server.js', 'Gruntfile.js', 'lib/**/*.js', 'test/**/*.js',
+                  'models/**/*.js', 'routes/**/*.js'];
 
   grunt.initConfig({
     mochaTest: {
       test: {
         options: {
         },
-        src: ['test/**/*.js']
+        src: ['test/user_test.js', 'test/**/*.js']
       }
     }, //end mochaTest
 
