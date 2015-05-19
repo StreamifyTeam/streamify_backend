@@ -14,10 +14,14 @@ process.env.APP_SECRET = process.env.APP_SECRET || 'changethis!';
 app.use(passport.initialize());
 require('./lib/passport_strategy')(passport);
 require('./routes/user_routes')(usersRoutes, passport);
-require('./routes/songs_routes')(songsRoutes);
-
 app.use('/api', usersRoutes);
+
+require('./routes/songs_routes')(songsRoutes);
 app.use('/api', songsRoutes);
+
+var playlistRoutes = express.Router();
+require('./routes/playlist_routes.js')(playlistRoutes);
+app.use('/api', playlistRoutes);
 
 //Prepare our emitter (to notify Mocha that we're ready to accept connections)
 var serverEmitter = module.exports = exports = new EventEmitter();
