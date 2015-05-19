@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var eat = require('eat');
 var userSchema = mongoose.Schema({
-	username: {type: String, unique: true},
-	email: String,
+	username: { type: String, unique: true },
+	email: { type: String, unique: true },
 	password: String,
 	userType: String,
 	favorites: [],
@@ -49,7 +49,8 @@ userSchema.methods.owns = function(obj) {
 };
 
 userSchema.methods.addToFavorites = function(fav, next) {
-
+	this.favorites.push(fav);
+	next();
 };
 
 userSchema.path('userType').validate(function(value) {
