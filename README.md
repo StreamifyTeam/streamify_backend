@@ -104,8 +104,8 @@ Add a new song:
 |/api/discovery/related/:id  | GET     | See Below   |
 
 ###### Response format
-```JSON
-{artist: [
+```json
+{artists: [
   {id: id,
   name: name,
   popularity: popularity,
