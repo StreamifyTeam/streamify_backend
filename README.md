@@ -80,10 +80,16 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 | spotifyID  |  string  |  URL to Spotify, unique|
 | genre   |  string  | stored in spotify on the album object |
 
+```
+
 API
 Get all songs:
 	GET: /api/songs get
-Find a song by song name
-	GET: /api/songs/SONGNAME get
+
+Find a song by spotifyID
+	GET: /api/songs/SPOTIFYID get
+
 Add a new song:
 	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
+
+```
