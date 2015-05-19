@@ -7,6 +7,21 @@ var bodyparser = require('body-parser');
 module.exports = function(router, passport) {
     router.use(bodyparser.json());
 
+    router.get('/user/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
+      req.user.generateToken(process.env.APP_SECRET, function (err, token) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg: 'error generating token'});
+        }
+        res.json({email: req.user.email || 'no email provided', username: req.user.username, token: token});
+      });
+    });
+
+    router.get('/user/fav', eatAuth, function(req, res) {
+
+      res.json({msg: 'Favorites: ' + req.user.favorites});
+    });
+
     router.post('/user/create_user', function(req, res) {
       var newUserData = JSON.parse(JSON.stringify(req.body));
       delete newUserData.email;
@@ -40,24 +55,6 @@ module.exports = function(router, passport) {
       });
       }
     });
-
-    router.get('/user/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
-      req.user.generateToken(process.env.APP_SECRET, function (err, token) {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({msg: 'error generating token'});
-        }
-
-        res.json({token: token});
-      });
-    });
-
-    router.get('/user/fav', eatAuth, function(req, res) {
-
-      res.json({msg: 'Favorites: ' + req.user.favorites});
-    });
-
-//for the docs: to add to favorites do put {favorites: 'itemtoadd'}
 
     router.put('/user/fav', eatAuth, function(req, res) {
       var addToFavorites = req.body.favorites;
