@@ -35,6 +35,17 @@ Create:
 Sign In:
 /api/user/sign_in -u example:pass
 
+Favorites:
+
+  GET:
+  /api/user/fav get {eat: 'tokenValueHere'}
+
+  PUT:
+  /api/user/fav put {eat: 'tokenValueHere', favorites: 'addYourFavoriteHere'}
+
+  DELETE:
+  /api/user/fav delete {eat: 'tokenValueHere', favorites: 'favoriteToBeDeleted'}
+
 ```
 
 ####Playlists /api/playlist/...

@@ -12,12 +12,6 @@ var server = require('../server.js'); //run our server
 
 describe('User Testing', function() {
 
-  before(function(done) {
-    server.once('started', function() {
-      done();
-    });
-  });
-
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
@@ -33,5 +27,23 @@ describe('User Testing', function() {
         expect(res.status).to.eql(200);
         done();
       });
+  });
+});
+
+describe('Favorites Testing', function() {
+
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
+      done();
+    });
+  });
+
+  it('creates a new Favorite', function(done) {
+    chai.request('localhost:3000')
+    .put('/api/user/fav')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      done();
+    });
   });
 });
