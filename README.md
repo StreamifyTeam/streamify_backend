@@ -60,11 +60,32 @@ Favorites:
 
 #####Example
 
-songs can be accessed with
+playlists can be accessed with
 ```
 
 playlist =  db.playlists.findOne({_id: playlist's ID});
 favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
+
+```
+
+```
+API: (currently getting updated to authenticate users)
+
+  GET:
+    Search for playlists:
+      /api/playlist/ get {searchString: "search string"}
+
+  POST:
+    Create playlist:
+      /api/create_playlist/ post {name: "playlistname"}
+    Add song to playlist:
+      /api/playlist/ post {id: playlistID, song: spotifySongID}
+      
+  DELETE:
+    Delete playlist:
+      /api/delete_playlist/ del {id: playlistID}
+    Delete song from playlist:
+      /api/playlist/ del {name: "playlistname", song: spotifySongID}
 
 ```
 
@@ -91,5 +112,45 @@ Find a song by spotifyID
 
 Add a new song:
 	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
+
+```
+
+####Discovery  
+##### Endpoints
+
+| Endpoint                   | Request | Response    |
+| ---------------------------| ------- | ------------|
+|/api/discovery/artist/:name | GET     | See Below   |
+|/api/discovery/genre/:name  | GET     | See Below   |
+|/api/discovery/related/:id  | GET     | See Below   |
+
+###### Response format
+```json
+{artists: [
+  {id: id,
+  name: name,
+  popularity: popularity,
+  url: url
+  }, ...
+  ]}
+```
+| Field Name | Value Type | Description          |
+| -------------| ----------- | ----------- |
+| _id          |  id      | Mongo DB internal id|
+| username     |  string  |  unique    |
+| email        |  string  |  not unique|
+| password     |  string  |     |
+| userType     |  string  |  _Restricted_ to [spotify, local]|
+| favorites    |  Array of Songs  |  Stored as: [_id, _id...] |
+| history      |  string  |    |
+| uniqueHash   |  string  | Used to create the EAT; easier to invalidate users |
+
+#####Examples
+
+Favorites can be accessed with
+```
+
+user =  db.users.findOne({username: example});
+favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
 
 ```
