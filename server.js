@@ -11,6 +11,9 @@ var songsRoutes = express.Router();
 process.env.APP_SECRET = process.env.APP_SECRET || 'changethis!';
 
 //Routes (and app.use calls) go here
+var discovery = express.Router();
+require('./routes/discovery_routes')(discovery);
+app.use('/api', discovery);
 app.use(passport.initialize());
 require('./lib/passport_strategy')(passport);
 require('./routes/user_routes')(usersRoutes, passport);
