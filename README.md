@@ -30,7 +30,7 @@ favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
 
 ```
 Create:
-/api/user/create_user post {username: 'example', password: 'pass'}
+/api/user/create_user post {username: 'egitxample', password: 'pass'}
 
 Sign In:
 /api/user/sign_in -u example:pass
@@ -61,10 +61,12 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 
 | Field Name | Value Type | Description       |
 | -----------| ----------- | ----------------|
-| _id        |  id    | Mongo DB internal id|
-| artist     |  string  |  Name of Artist |
-| name       |  string  |  Name of the song     |
+| artist     |  string  |  Name of Artist, reuired|
+| name       |  string  |  Name of the song, unique|
 | duration   |  number  |  The track length in miliseconds|
 | album   |  string  |   Name of the Album|
 | coverArt  |  string  |  URL to coverArt |
+| spotifyID  |  string  |  URL to Spotify, unique|
 | genre   |  string  | stored in spotify on the album object |
+
+API
