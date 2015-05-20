@@ -99,7 +99,6 @@ API: (currently getting updated to authenticate users)
 | album   |  string  |   Name of the Album|
 | coverArt  |  string  |  URL to coverArt |
 | spotifyID  |  string  |  URL to Spotify, unique|
-| genre   |  string  | stored in spotify on the album object |
 
 ```
 
@@ -111,8 +110,10 @@ Find a song by spotifyID
 	GET: /api/songs/SPOTIFYID get
 
 Add a new song:
-	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
+	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id'}
 
+Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
+  POST: /api/songs/arrayID post '["spotifyID1", "spotifyID2"]'
 ```
 
 ####Discovery  
