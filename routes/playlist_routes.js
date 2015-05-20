@@ -11,6 +11,7 @@ var http = require('http');
 //all these routes will be under /api
 
 module.exports = function(router) {
+  router.use(function(req, res, next){console.log(req);next();});
   router.use(bodyparser.json());
 
   //Finds all playlists with a certain word (or words) in its name
