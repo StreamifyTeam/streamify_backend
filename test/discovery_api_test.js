@@ -4,7 +4,7 @@ var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
 chai.use(chaihttp);
-var server = require('../server.js');
+//var server = require('../server.js'); huh, turns out mocha will run whatever server requires this, first.
 
 
 describe('Music Discovery for the win', function() {
@@ -15,6 +15,7 @@ describe('Music Discovery for the win', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.artists[0].name).to.eql("Girls' Generation");
+        expect(res.body.artists[0].popularity).to.eql(65);
         done();
       });
   });
@@ -25,6 +26,7 @@ describe('Music Discovery for the win', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.artists[0].name).to.eql("PSY");
+        expect(res.body.artists[0].popularity).to.eql(67);
         done();
       });
   });
@@ -35,27 +37,8 @@ describe('Music Discovery for the win', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.artists[0].name).to.eql('B1A4');
+        expect(res.body.artists[0].popularity).to.eql(53);
         done();
       });
     });
-
-  it('should give a list of top tracks', function(done) {
-    chai.request('localhost:3000')
-      .get('/api/discovery/top-tracks/2uWcrwgWmZcQc3IPBs3tfU')
-      .end(function(err, res) {
-        expect(err).to.eql(null);
-        expect(res.body.tracks[0].name).to.eql('Let Us Just Love');
-        done();
-      });
-  });
-
-  it('should give a list related youtube videos', function(done) {
-    chai.request('localhost:3000')
-      .get('/api/discovery/youtube/girlsday')
-      .end(function(err, res) {
-        expect(err).to.eql(null);
-        expect(res.body.videos[0].id).to.eql('9lSJMKi184c');
-        done();
-      });
-  });
 });
