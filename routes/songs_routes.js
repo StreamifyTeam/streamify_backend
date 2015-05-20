@@ -30,6 +30,17 @@ module.exports = function(router){
 		});
 	});
 
+	//find a list of song by a list of id
+	router.post('/songs/arrayID', function(req, res) {
+		Song.find({spotifyID: {$in: req.body}}, function(err, data){
+			if(err){
+				console.log(err);
+				return res.status(500).json({msg: 'internal server error'});
+			}
+			res.json(data);
+		});
+	});
+
 	//add a new song
 	router.post('/songs', function(req, res) {
 		var newSong = new Song(req.body);

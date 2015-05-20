@@ -7,12 +7,29 @@ var bodyparser = require('body-parser');
 module.exports = function(router, passport) {
     router.use(bodyparser.json());
 
+    router.get('/user/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
+      req.user.generateToken(process.env.APP_SECRET, function (err, token) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg: 'error generating token'});
+        }
+        res.json({email: req.user.email || 'no email provided', username: req.user.username, token: token});
+      });
+    });
+
+    router.get('/user/fav', eatAuth, function(req, res) {
+
+      res.json({msg: 'Favorites: ' + req.user.favorites});
+    });
+
     router.post('/user/create_user', function(req, res) {
+
       var newUserData = JSON.parse(JSON.stringify(req.body));
       delete newUserData.email;
       delete newUserData.password;
       var newUser = new User(newUserData);
       newUser.email = req.body.email;
+
       newUser.generateHash(req.body.password, 8, function (err, hash) {
         if (err) {
           console.log(err);
@@ -41,23 +58,64 @@ module.exports = function(router, passport) {
       }
     });
 
-    router.get('/user/sign_in', passport.authenticate('basic', {session: false}), function(req, res) {
-      req.user.generateToken(process.env.APP_SECRET, function (err, token) {
+		router.post('/user/spotify_user', function(req, res) {
+			var newUserData = JSON.parse(JSON.stringify(req.body));
+
+      delete newUserData.email;
+      delete newUserData.password;
+      var newUser = new User(newUserData);
+      newUser.email = req.body.email;
+      var userExists = null;
+			User.find({username: newUser.username}, function(err, data) {
+      	if (err) {
+      		console.log(err);
+      	}
+      	if (data.length !== 0 ) {
+      	userExists = data;
+      	}
+      });
+
+   		newUser.generateHash(req.body.password, 8, function (err, hash) {
         if (err) {
           console.log(err);
-          return res.status(500).json({msg: 'error generating token'});
         }
 
-        res.json({token: token});
+        newUser.password = hash;
+        saveUserAsync();
+
+
       });
-    });
 
-    router.get('/user/fav', eatAuth, function(req, res) {
+      function saveUserAsync() {
+      if (userExists) {
+      	var user = new User(userExists);
+      	user.generateToken(process.env.APP_SECRET, function(err, token) {
+          if(err) {
+            console.log(err);
+            return res.status(500).json({msg: 'error generating token'});
+          }
 
-      res.json({msg: 'Favorites: ' + req.user.favorites});
-    });
+        res.json({email: newUser.email || 'no email provided', username: newUser.username, token: token});
+        });
+      } else { 
+      	newUser.save(function(err, user) {
+      		if (err) {
+      		console.log(err);
+      		return res.status(500).json({msg: 'could not create user'});
+      		}
 
-//for the docs: to add to favorites do put {favorites: 'itemtoadd'}
+      		user.generateToken(process.env.APP_SECRET, function(err, token) {
+          if(err) {
+            console.log(err);
+            return res.status(500).json({msg: 'error generating token'});
+          }
+
+        	res.json({email: newUser.email || 'no email provided', username: newUser.username, token: token});
+      		});
+      	});
+      }
+		}
+		});
 
     router.put('/user/fav', eatAuth, function(req, res) {
       var addToFavorites = req.body.favorites;

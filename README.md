@@ -35,6 +35,9 @@ Create:
 Sign In:
 /api/user/sign_in -u example:pass
 
+Sign In with spotify user:
+/api/user/spotify_user  
+
 Favorites:
 
   GET:
@@ -107,7 +110,6 @@ API: (currently getting updated to authenticate users)
 | album   |  string  |   Name of the Album|
 | coverArt  |  string  |  URL to coverArt |
 | spotifyID  |  string  |  URL to Spotify, unique|
-| genre   |  string  | stored in spotify on the album object |
 
 ```
 
@@ -119,6 +121,45 @@ Find a song by spotifyID
 	GET: /api/songs/SPOTIFYID get
 
 Add a new song:
-	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id', genre: 'rock'}
+	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id'}
 
+Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
+  POST: /api/songs/arrayID post '["spotifyID1", "spotifyID2"]'
 ```
+
+####Discovery  
+##### Endpoints
+
+| Endpoint                   | Request | Response    |
+| ---------------------------| ------- | ------------|
+|/api/discovery/artist/:name | GET     | See Below (1)  |
+|/api/discovery/genre/:name  | GET     | See Below (1) |
+|/api/discovery/related/:id  | GET     | See Below (1)  |
+|/api/discovery/top-tracks/:id | GET     | See Below (2)  |
+|/api/discovery/youtube/:query | GET     | See Below (3)  |
+
+
+
+###### Response format
+######(1)
+{artists: [
+  {id: id,
+  name: name,
+  popularity: popularity,
+  url: url
+  }, ...
+  ]}
+######(2)
+{tracks: [
+  {id: id,
+  name: name,
+  popularity: popularity,
+  }, ...
+  ]}
+######(3)
+{videos: [
+  {id: id,
+  title: title,
+  thumb: thumb,
+  }, ...
+  ]}

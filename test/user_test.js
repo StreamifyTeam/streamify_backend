@@ -23,7 +23,7 @@ describe('User Testing', function() {
         testToken = res.body.token;
         expect(err).to.eql(null);
         expect(res.body.username).to.eql('testUser');
-        expect(res.body.token).to.not.eql('undefined');
+        expect(res.body.token.length).to.eql(80);
         expect(res.status).to.eql(200);
         done();
       });
@@ -43,7 +43,7 @@ describe('User Testing', function() {
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.username).to.eql('rainer');
-        expect(res.body.token.length).to.eql(44);
+        expect(res.body.token.length).to.eql(80);
         expect(res.status).to.eql(200);
         done();
       });
@@ -55,7 +55,7 @@ describe('User Testing', function() {
     .auth('rainer','foobar')
     .end(function(err, res) {
       expect(err).to.eql(null);
-      expect(res.body.token.length).to.eql(44);
+      expect(res.body.token.length).to.eql(80);
       done();
     });
   });
