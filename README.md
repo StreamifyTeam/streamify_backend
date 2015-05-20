@@ -125,6 +125,8 @@ Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of 
 |/api/discovery/genre/:name  | GET     | See Below (1) |
 |/api/discovery/related/:id  | GET     | See Below (1)  |
 |/api/discovery/top-tracks/:id | GET     | See Below (2)  |
+|/api/discovery/youtube/:query | GET     | See Below (3)  |
+
 
 
 ###### Response format
@@ -141,5 +143,12 @@ Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of 
   {id: id,
   name: name,
   popularity: popularity,
+  }, ...
+  ]}
+######(3)
+{videos: [
+  {id: id,
+  title: title,
+  thumb: thumb,
   }, ...
   ]}
