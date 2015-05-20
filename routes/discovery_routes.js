@@ -23,10 +23,7 @@ module.exports = function (router) {
             artist.id = data.id;
             artist.name = data.name;
             artist.popularity = data.popularity;
-            if(data.images[0]) {
-              if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
-              else artist.url = data.images[data.images.length - 1].url;
-            }
+            if(data.images[0]) artist.url = data.images[0].url;
             results.push(artist);
           });
           res.json({artists: results});
@@ -52,10 +49,7 @@ module.exports = function (router) {
               artist.id = data.id;
               artist.name = data.name;
               artist.popularity = data.popularity;
-              if(data.images[0]) {
-                if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
-                else artist.url = data.images[data.images.length - 1].url;
-              }
+              if(data.images[0]) artist.url = data.images[0].url;
               results.push(artist);
             });
             res.json({artists: results});
@@ -79,10 +73,7 @@ module.exports = function (router) {
               artist.id = data.id;
               artist.name = data.name;
               artist.popularity = data.popularity;
-              if(data.images[0]) {
-                if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
-                else artist.url = data.images[data.images.length - 1].url;
-              }
+              if(data.images[0]) artist.url = data.images[0].url;
               results.push(artist);
             });
             res.json({artists: results});
@@ -127,7 +118,7 @@ module.exports = function (router) {
             var video = {};
             video.id = data.id.videoId;
             video.title = data.snippet.title;
-            video.thumb = data.snippet.thumbnails.default.url;
+            video.thumb = data.snippet.thumbnails.high.url;
             results.push(video);
           });
           res.json({videos: results});
