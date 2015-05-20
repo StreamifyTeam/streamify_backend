@@ -13,6 +13,9 @@ var userSchema = mongoose.Schema({
 	uniqueHash: String
 });
 
+//npm install uuid
+//timestamp
+
 userSchema.methods.generateHash = function(password, salt, next) {
 	bcrypt.genSalt(salt, function(err, salt) {
 		if (err) {
@@ -34,13 +37,12 @@ userSchema.methods.checkPassword = function(password, cb) {
 			return cb(err);
 		}
 
-		console.log(response);
 		cb(null, response);
 	});
 };
 
 userSchema.methods.generateToken = function(secret, callback) {
-	eat.encode({id: this._id}, secret, callback);
+	eat.encode({id: this._id, timestamp: Date.now()}, secret, callback);
 };
 
 userSchema.methods.owns = function(obj) {
@@ -49,7 +51,7 @@ userSchema.methods.owns = function(obj) {
 };
 
 userSchema.methods.addToFavorites = function(fav, next) {
-	this.favorites.push(fav);
+	this.favorites.push(fav);;
 	next();
 };
 

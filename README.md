@@ -35,6 +35,9 @@ Create:
 Sign In:
 /api/user/sign_in -u example:pass
 
+Sign In with spotify user:
+/api/user/spotify_user  
+
 Favorites:
 
   GET:
