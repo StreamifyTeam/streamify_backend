@@ -76,7 +76,7 @@ describe('Song REST api', function() {
 				expect(err).to.eql(null);
 				expect(Array.isArray(res.body)).to.eql(true);
 				for(var i = 0; i < res.body.length;)
-					expect(res.body[i].spotifyID).to.eql('spotifyID' + ++i);
+					expect(res.body[i]).to.eql('JavaScript' + ++i);
 				done();
 			});
 	});
