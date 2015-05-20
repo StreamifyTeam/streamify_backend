@@ -102,4 +102,26 @@ module.exports = function (router) {
           res.json({tracks: results});
       });
     });
+
+    router.get('/discovery/youtube/:q', function(req, res) {
+      request({
+        url: 'https://www.googleapis.com/youtube/v3/search',
+        qs: {part: 'snippet', q: req.params.q, type:'video', key: process.env.YOUTUBE_API_KEY},
+        method: 'GET' } , function(err, response, body) {
+          if(err) {
+            console.log(err);
+            return res.status(500).json({msg: 'internal server error'});
+          }
+          var results = [];
+          var array = JSON.parse(body);
+          array.items.forEach(function(data) {
+            var video = {};
+            video.id = data.id.videoId;
+            video.title = data.snippet.title;
+            video.thumb = data.snippet.thumbnails.default.url;
+            results.push(video);
+          });
+          res.json({videos: results});
+        });
+      });
 };

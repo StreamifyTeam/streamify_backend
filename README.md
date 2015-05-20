@@ -124,6 +124,8 @@ Add a new song:
 |/api/discovery/genre/:name  | GET     | See Below (1) |
 |/api/discovery/related/:id  | GET     | See Below (1)  |
 |/api/discovery/top-tracks/:id | GET     | See Below (2)  |
+|/api/discovery/youtube/:query | GET     | See Below (3)  |
+
 
 
 ###### Response format
@@ -140,5 +142,12 @@ Add a new song:
   {id: id,
   name: name,
   popularity: popularity,
+  }, ...
+  ]}
+######(3)
+{videos: [
+  {id: id,
+  title: title,
+  thumb: thumb,
   }, ...
   ]}
