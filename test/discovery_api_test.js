@@ -4,7 +4,7 @@ var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
 chai.use(chaihttp);
-var server = require('../server.js');
+//var server = require('../server.js');
 
 
 describe('Music Discovery for the win', function() {
