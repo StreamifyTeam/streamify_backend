@@ -11,6 +11,22 @@ chai.use(chaiHttp);
 
 describe('Playlist API', function() {
   var testPlaylistID;
+  var testToken;
+  var idOfSongToDelete;
+
+  before(function(done) {
+    chai.request('localhost:3000')
+    .post('/api/user/create_user')
+    .send({email: 'user@test.com', username: 'testUser', password: 'foobar'})
+    .end(function(err, res) {
+      testToken = res.body.token;
+      expect(err).to.eql(null);
+      expect(res.body.username).to.eql('testUser');
+      expect(res.body.token).to.not.eql('undefined');
+      expect(res.status).to.eql(200);
+      done();
+    });
+  }); //end before
 
   after(function(done) {
     mongoose.connection.db.dropDatabase(function() {
@@ -20,36 +36,40 @@ describe('Playlist API', function() {
   });
 
   it('should be able to add a new playlist', function(done) {
+    //console.log('sending new playlist');
     chai.request('localhost:3000')
       .post('/api/create_playlist')
-      .send({name: 'Test Playlist 1'})
+      .send({eat: testToken, name: 'Test Playlist 1'})
       .end(function(err, res) {
+        //console.log('res received');
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.body).to.have.property('_id');
         expect(res.body.name).to.eql('Test Playlist 1');
+        //expect(res.body.createdBy).to.eql()
         //add tests for collaborator, owner, etc... once users are integrated
         testPlaylistID = res.body._id;
         done();
       });
   });
 
-  it('should be able to get an array of existing playlists', function(done) {
+  it('should be able to get an array of specific existing playlists', function(done) {
     //Add a second playlist
     chai.request('localhost:3000')
       .post('/api/create_playlist')
-      .send({name: 'Test Playlist 2'})
+      .send({name: '~~Magic~~***', eat: testToken})
       .end(function(err, res) {
         expect(err).to.eql(null);
       });
     chai.request('localhost:3000')
-      .get('/api/playlist')
-      .send({searchString: 'Test'})
+      .get('/api/playlist/search')
+      .send({searchString: 'Test', eat: testToken})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(typeof res.body).to.eql('object');
         expect(Array.isArray(res.body)).to.eql(true);
+        expect(res.body.length).to.eql(1);
         res.body.forEach(function(item) {
           expect(item.name).to.contain('Test');
         });
@@ -61,26 +81,63 @@ describe('Playlist API', function() {
   it('should be able to add a song to a playlist', function(done) {
     chai.request('localhost:3000')
       .post('/api/playlist')
-      .send({id: testPlaylistID,
-             song: {title: 'With A Little Help From My Friends',
-                    artist: 'The Beatles',
-                    spotifyId: 125}})
+      .send({eat: testToken,
+            id: testPlaylistID,
+            song: {
+              artistName: "The Beatles",
+              trackName: 'With A Little Help From My Friends',
+              duration: '3:02',
+              albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+              uri: 'foobar39103'}})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.body.msg).to.eql('success');
-        done();
+
+        //Add two more songs for the next test
+        chai.request('localhost:3000')
+        .post('/api/playlist')
+        .send({eat: testToken,
+              id: testPlaylistID,
+              song: {
+                artistName: "The Beatles",
+                trackName: 'Lucy In The Sky With Diamonds',
+                duration: '2:48',
+                albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+                uri: 'barfoo2205'}})
+        .end(function(err, res) {
+          chai.request('localhost:3000')
+          .get('/api/playlist/search')
+          .send({searchString: 'Test', eat: testToken})
+          .end(function(err, res) {
+            idOfSongToDelete = res.body[0].songs[1];
+            done();
+          });
+        });
+        //For the first one, we stored its ID. This one is just getting added to the end.
+        chai.request('localhost:3000')
+        .post('/api/playlist')
+        .send({eat: testToken,
+              id: testPlaylistID,
+              song: {
+                artistName: "The Beatles",
+                trackName: 'Good Morning',
+                duration: '2:33',
+                albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+                uri: 'foobar1111'}})
+        .end();
       });
   });
 
   it('should be able to remove a song from a playlist', function(done) {
     chai.request('localhost:3000')
       .delete('/api/playlist')
-      .send({id: testPlaylistID, songId: 125})
+      .send({eat: testToken, id: testPlaylistID, song: idOfSongToDelete})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
-        expect(res.body.msg).to.eql('success');
+        expect(Array.isArray(res.body.songs)).to.eql(true);
+        expect(res.body.songs.length).to.eql(2);
         done();
       });
   });
@@ -88,12 +145,20 @@ describe('Playlist API', function() {
   it('should be able to delete a playlist', function(done) {
     chai.request('localhost:3000')
       .delete('/api/delete_playlist')
-      .send({id: testPlaylistID})
+      .send({id: testPlaylistID, eat: testToken})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.body.msg).to.eql('success');
-        done();
+        
+        chai.request('localhost:3000')
+        .get('/api/playlist/search')
+        .send({searchString: 'Magic', eat: testToken})
+        .end(function(err, res) {
+          expect(Array.isArray(res.body)).to.eql(true);
+          expect(res.body.length).to.eql(1);
+          done();
+        });
       });
   });
 
