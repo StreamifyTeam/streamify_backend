@@ -65,7 +65,6 @@ module.exports = function (router) {
             console.log(err);
             return res.status(500).json({msg: 'internal server error'});
           }
-          else {
             var array = JSON.parse(body);
             var results = [];
             if(array.error) return res.status(404).json({msg: 'artist not found'});
@@ -78,7 +77,29 @@ module.exports = function (router) {
               results.push(artist);
             });
             res.json({artists: results});
-        }
+      });
+    });
+
+    router.get('/discovery/top-tracks/:id', function(req, res) {
+      request({
+        url: 'https://api.spotify.com/v1/artists/' + req.params.id + '/top-tracks',
+        qs: {country: 'US'},
+        method: 'GET' } ,function(err, response, body) {
+          if(err) {
+            console.log(err);
+            return res.status(500).json({msg: 'internal server error'});
+          }
+          var array = JSON.parse(body);
+          var results = [];
+          if(array.error) return res.status(404).json({msg: 'artist not found'});
+          array.tracks.forEach(function(data) {
+            var track = {};
+            track.id = data.id;
+            track.name = data.name;
+            track.popularity = data.popularity;
+            results.push(track);
+          });
+          res.json({tracks: results});
       });
     });
 };

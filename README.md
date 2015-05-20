@@ -80,7 +80,7 @@ API: (currently getting updated to authenticate users)
       /api/create_playlist/ post {name: "playlistname"}
     Add song to playlist:
       /api/playlist/ post {id: playlistID, song: spotifySongID}
-      
+
   DELETE:
     Delete playlist:
       /api/delete_playlist/ del {id: playlistID}
@@ -120,12 +120,14 @@ Add a new song:
 
 | Endpoint                   | Request | Response    |
 | ---------------------------| ------- | ------------|
-|/api/discovery/artist/:name | GET     | See Below   |
-|/api/discovery/genre/:name  | GET     | See Below   |
-|/api/discovery/related/:id  | GET     | See Below   |
+|/api/discovery/artist/:name | GET     | See Below (1)  |
+|/api/discovery/genre/:name  | GET     | See Below (1) |
+|/api/discovery/related/:id  | GET     | See Below (1)  |
+|/api/discovery/top-tracks/:id | GET     | See Below (2)  |
+
 
 ###### Response format
-```
+######(1)
 {artists: [
   {id: id,
   name: name,
@@ -133,4 +135,10 @@ Add a new song:
   url: url
   }, ...
   ]}
-```
+######(2)
+{tracks: [
+  {id: id,
+  name: name,
+  popularity: popularity,
+  }, ...
+  ]}
