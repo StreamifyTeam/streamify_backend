@@ -100,7 +100,7 @@ module.exports = function(router, passport) {
       } else { 
       	newUser.save(function(err, user) {
       		if (err) {
-      		console.log(err)
+      		console.log(err);
       		return res.status(500).json({msg: 'could not create user'});
       		}
 

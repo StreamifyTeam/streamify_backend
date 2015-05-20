@@ -51,7 +51,7 @@ userSchema.methods.owns = function(obj) {
 };
 
 userSchema.methods.addToFavorites = function(fav, next) {
-	this.favorites.push(fav);;
+	this.favorites.push(fav);
 	next();
 };
 
