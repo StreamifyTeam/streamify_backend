@@ -41,4 +41,14 @@ describe('Music Discovery for the win', function() {
         done();
       });
     });
+
+  it('should give a list of top tracks', function(done) {
+    chai.request('localhost:3000')
+      .get('/api/discovery/top-tracks/2uWcrwgWmZcQc3IPBs3tfU')
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.body.tracks[0].name).to.eql('Let Us Just Love');
+        done();
+      });
+  });
 });
