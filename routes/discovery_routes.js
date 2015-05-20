@@ -23,7 +23,10 @@ module.exports = function (router) {
             artist.id = data.id;
             artist.name = data.name;
             artist.popularity = data.popularity;
-            if(data.images[0]) artist.url = data.images[data.images.length - 1].url;
+            if(data.images[0]) {
+              if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
+              else artist.url = data.images[data.images.length - 1].url;
+            }
             results.push(artist);
           });
           res.json({artists: results});
@@ -49,7 +52,10 @@ module.exports = function (router) {
               artist.id = data.id;
               artist.name = data.name;
               artist.popularity = data.popularity;
-              if(data.images[0]) artist.url = data.images[data.images.length - 1].url;
+              if(data.images[0]) {
+                if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
+                else artist.url = data.images[data.images.length - 1].url;
+              }
               results.push(artist);
             });
             res.json({artists: results});
@@ -73,7 +79,10 @@ module.exports = function (router) {
               artist.id = data.id;
               artist.name = data.name;
               artist.popularity = data.popularity;
-              if(data.images[0]) artist.url = data.images[data.images.length - 1].url;
+              if(data.images[0]) {
+                if(data.images[data.images.length - 2]) artist.url = data.images[data.images.length - 2].url;
+                else artist.url = data.images[data.images.length - 1].url;
+              }
               results.push(artist);
             });
             res.json({artists: results});
