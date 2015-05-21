@@ -76,7 +76,7 @@ describe('User Testing', function() {
     .get('/api/user/fav')
     .send({eat: testToken})
     .end(function(err, res) {
-      expect(res.body.msg).to.eql('Favorites: ' + 'testFavorite');
+      expect(res.status).to.eql(200);
       expect(err).to.eql(null);
       done();
     });
