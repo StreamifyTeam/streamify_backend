@@ -95,6 +95,8 @@ module.exports = function(router) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
+      console.log("ADD SONG BODY: ");
+      console.log(req.body);
       var options = {
         host: 'localhost',
         port: 3000,
