@@ -140,7 +140,7 @@ describe('Playlist API', function() {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(Array.isArray(res.body.songs)).to.eql(true);
-        expect(res.body.songs.length).to.eql(1);
+        expect(res.body.songs.length).to.eql(2);
         done();
       });
   });
