@@ -110,6 +110,7 @@ API: (currently getting updated to authenticate users)
 | album   |  string  |   Name of the Album|
 | coverArt  |  string  |  URL to coverArt |
 | spotifyID  |  string  |  URL to Spotify, unique|
+| album_artwork_url  |  string  |  URL to album artwork, unique|
 
 ```
 
@@ -125,7 +126,24 @@ Add a new song:
 
 Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
   POST: /api/songs/arrayID post '["spotifyID1", "spotifyID2"]'
-  return: an array of song names. ex: ["Hello World", "Hello JavaScript"]
+  return song objects:
+   { msg: 
+   [ { _id: '555e57db9d62474b58eeef0b',
+       artist: 'CodeFellows1',
+       name: 'JavaScript1',
+       album: 'Summer',
+       duration: '300',
+       spotifyID: 'id1',
+       __v: 0 },
+     { _id: '555e58239d62474b58eeef0f',
+       artist: 'CodeFellows1',
+       name: 'JavaScript2',
+       album: 'Summer',
+       duration: '300',
+       spotifyID: 'id2',
+       album_artwork_url: '2',
+       __v: 0 } ] }
+
 ```
 
 ####Discovery  
