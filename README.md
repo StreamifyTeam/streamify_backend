@@ -76,10 +76,10 @@ API: (currently getting updated to authenticate users)
 
   GET:
     Search for playlists:
-      /api/playlist/search get {searchString: "search string", eat: token}
+      /api/playlist/search get http headers: searchString=searchstring, eat=token
         Responds with an array of all playlist objects.
     Get a user's playlists:
-      /api/playlist/mine get {eat: token}
+      /api/playlist/mine get http headers: eat=token
         Responds with an array of all owned playlist objects.
 
   POST:
