@@ -37,7 +37,7 @@ module.exports = function(router){
 				console.log(err);
 				return res.status(500).json({msg: 'unable to get list of song'});
 			}
-			res.json(data);
+			res.json({msg: data});
 		});
 	});
 

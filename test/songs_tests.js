@@ -73,10 +73,10 @@ describe('Song REST api', function() {
 			.post('/api/songs/arrayID')
 			.send(["spotifyID1", "spotifyID2"])
 			.end(function(err, res){
+				console.log("hello1");
 				expect(err).to.eql(null);
-				expect(Array.isArray(res.body)).to.eql(true);
 				for(var i = 0; i < res.body.length; i++)
-					expect(res.body[i].spotifyID).to.eql('spotifyID' + (i + 1));
+					expect(res.body.msg[i].spotifyID).to.eql('spotifyID' + (i + 1));
 				done();
 			});
 	});
