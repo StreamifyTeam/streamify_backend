@@ -99,6 +99,7 @@ module.exports = function (router) {
             var track = {};
             track.id = data.id;
             track.name = data.name;
+            track.uri = data.uri;
             track.popularity = data.popularity;
             results.push(track);
           });
