@@ -109,7 +109,6 @@ module.exports = function(router) {
         var body2 = '';
         res2.on('data', function(data) { body2 += data;});
         res2.on('end', function(data) {
-          console.log(JSON.parse(body2));
           //If the song wasn't present in the Songs database, add a new entry
           if (!JSON.parse(body2)) //(this can be any of the properties we have in songs in our database)
           {

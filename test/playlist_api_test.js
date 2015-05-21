@@ -124,7 +124,7 @@ describe('Playlist API', function() {
             //.post(encodeURIComponent('/api/playlist/search?searchString=Test&eat=' + testToken))
             .end(function(err, res) {
               idOfSongToDelete = res.body[0].songs[1];
-              console.log(res.body[0].songs);
+              //console.log(res.body[0].songs);
               done();
             });
           });
