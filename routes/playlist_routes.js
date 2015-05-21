@@ -149,7 +149,7 @@ module.exports = function(router) {
                 }); //end save
               });//end response
             });
-            console.log('I have no idea what this part of the code does.')
+            console.log('I have no idea what this part of the code does.');
             req3.write(JSON.stringify(songBody));
             req3.end();
           }
