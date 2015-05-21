@@ -90,6 +90,7 @@ module.exports = function(router) {
   //send POST to /api/playlist/
   //message body: {eat: token, id: playlistID, song: spotifySong}
   router.post('/playlist', eatAuth, function(req, res) {
+    console.log(req.body);
     console.log('Made it to the function.');
     Playlist.findOne({_id: req.body.id}, function(err, pl) {
       if (err) {
@@ -110,8 +111,9 @@ module.exports = function(router) {
       };
       console.log('Created the song request options');
       var req2 = http.request(options, function(res2) {
+        console.log('started the request function');
         var body2 = '';
-        res2.on('data', function(data) { body2 += data;});
+        res2.on('data', function(data) { console.log('got data'); body2 += data;});
         res2.on('end', function(data) {
           console.log('Finished song request.');
           //If the song wasn't present in the Songs database, add a new entry

@@ -89,7 +89,8 @@ API: (currently getting updated to authenticate users)
     Add song to playlist:
       /api/playlist/ post {id: playlistID, eat: token, artistName: artistname,
                           trackName: trackname, duration: duration,
-                          albumName: albumname, uri: spotifyURI}
+                          albumName: albumname, uri: spotifyURI,
+                          albumArtworkURL: albumArtworkURL}
         Responds with the object {msg: 'success'}
 
   DELETE:
