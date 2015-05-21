@@ -19,14 +19,7 @@
 
 #####Examples
 
-Favorites can be accessed with
-```
-
-user =  db.users.findOne({username: example});
-favorites = db.songs.find({_id: { $in : user.favorites } } ).toArray();
-
-```
-
+Users:
 
 ```
 Create:
