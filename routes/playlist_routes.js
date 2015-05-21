@@ -17,9 +17,8 @@ module.exports = function(router) {
   //send GET to /api/playlist/search
   //http headers: searchString=searchstring, eat=token
   router.get('/playlist/search', eatAuth, function(req, res) {
-    console.log(req.query);
     //basic regular expression: true if playlist name contains our string
-    Playlist.find({name: new RegExp(req.query.searchString, 'i')},
+    Playlist.find({name: new RegExp(req.body.searchString, 'i')},
     function(err, data) {
       if (err) {
         console.log(err);
