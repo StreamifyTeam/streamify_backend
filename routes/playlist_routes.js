@@ -95,12 +95,12 @@ module.exports = function(router) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
-      console.log("ADD SONG BODY: ");
-      console.log(req.body);
+      //console.log("ADD SONG BODY: ");
+      //console.log(req.body);
       var options = {
         host: 'localhost',
         port: 3000,
-        path: '/api/songs/' + req.body.song.uri,
+        path: '/api/songs/' + req.body.uri,
         method: 'GET',
         headers: {
           "Content-Type": "application/json"
@@ -115,12 +115,12 @@ module.exports = function(router) {
           if (!JSON.parse(body2)) //(this can be any of the properties we have in songs in our database)
           {
             var songBody =
-              {artist: req.body.song.artistName,
-               name: req.body.song.trackName,
-               duration: req.body.song.duration,
-               album: req.body.song.albumName,
-               spotifyID: req.body.song.uri,
-               album_artwork_url: req.body.song.albumArtworkURL};
+              {artist: req.body.artistName,
+               name: req.body.trackName,
+               duration: req.body.duration,
+               album: req.body.albumName,
+               spotifyID: req.body.uri,
+               album_artwork_url: req.body.albumArtworkURL};
             options.path = '/api/songs';
             options.method = 'POST';
             var req3 = http.request(options, function(res3) {
