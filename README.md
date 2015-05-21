@@ -74,12 +74,12 @@ favorites = db.songs.find({_id: { $in : playlist.songs } } ).toArray();
 ```
 API: (currently getting updated to authenticate users)
 
-  GET:
+  POST:
     Search for playlists:
-      /api/playlist/search get {searchString: "search string", eat: token}
+      /api/playlist/search post {searchString: "search string", eat: token}
         Responds with an array of all playlist objects.
     Get a user's playlists:
-      /api/playlist/mine get {eat: token}
+      /api/playlist/mine post {eat: token}
         Responds with an array of all owned playlist objects.
 
   POST:
