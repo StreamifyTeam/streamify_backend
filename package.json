@@ -14,7 +14,8 @@
     "mongoose": "^4.0.2",
     "passport": "^0.2.1",
     "passport-http": "^0.2.2",
-    "request": "^2.55.0"
+    "request": "^2.55.0",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^2.3.0",
