@@ -15,10 +15,10 @@ module.exports = function(router) {
 
   //Finds all playlists with a certain word (or words) in its name
   //send GET to /api/playlist/search
-  //message body: {searchString: "search string", eat: token}
+  //http headers: searchString=searchstring, eat=token
   router.get('/playlist/search', eatAuth, function(req, res) {
     //basic regular expression: true if playlist name contains our string
-    Playlist.find({name: new RegExp(req.body.searchString, 'i')},
+    Playlist.find({name: new RegExp(req.query.searchString, 'i')},
     function(err, data) {
       if (err) {
         console.log(err);
