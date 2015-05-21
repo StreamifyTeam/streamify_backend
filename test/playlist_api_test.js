@@ -62,7 +62,7 @@ describe('Playlist API', function() {
         expect(err).to.eql(null);
       });
     chai.request('localhost:3000')
-      .get('/api/playlist/search?searchString=Test&eat=' + testToken)
+      .get(encodeURIComponent('/api/playlist/search?searchString=Test&eat=' + testToken))
       //.send({searchString: 'Test', eat: testToken})
       //Fun Fact, sending a body with a get request goes against the HTTP/1.1 spec.
       //So, don't do it, anything enforcing the spec rigidly will refuse.
@@ -96,7 +96,7 @@ describe('Playlist API', function() {
         expect(res.status).to.eql(200);
         expect(res.body.msg).to.eql('success');
 
-        //Add two more songs for the next test
+        //Add one more song for the next test
         chai.request('localhost:3000')
         .post('/api/playlist')
         .send({eat: testToken,
@@ -109,24 +109,12 @@ describe('Playlist API', function() {
                 uri: 'barfoo2205'}})
         .end(function(err, res) {
           chai.request('localhost:3000')
-          .get('/api/playlist/search?searchString=Test&eat=' + testToken)
+          .get(encodeURIComponent('/api/playlist/search?searchString=Test&eat=' + testToken))
           .end(function(err, res) {
             idOfSongToDelete = res.body[0].songs[1];
             done();
           });
         });
-        //For the first one, we stored its ID. This one is just getting added to the end.
-        chai.request('localhost:3000')
-        .post('/api/playlist')
-        .send({eat: testToken,
-              id: testPlaylistID,
-              song: {
-                artistName: "The Beatles",
-                trackName: 'Good Morning',
-                duration: '2:33',
-                albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
-                uri: 'foobar1111'}})
-        .end();
       });
   });
 
@@ -153,7 +141,7 @@ describe('Playlist API', function() {
         expect(res.body.msg).to.eql('success');
         
         chai.request('localhost:3000')
-        .get('/api/playlist/search?searchString=Magic&eat=' + testToken)
+        .get(encodeURIComponent('/api/playlist/search?searchString=Magic&eat=' + testToken))
         .send({searchString: 'Magic', eat: testToken})
         .end(function(err, res) {
           expect(Array.isArray(res.body)).to.eql(true);
