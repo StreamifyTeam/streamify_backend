@@ -47,7 +47,7 @@ module.exports = function(router, passport) {
     delete newUserData.email;
     delete newUserData.password;
     newUser.email = req.body.email;
-    newUser.userType = newUserData.userType;
+    newUser.userType = newUserData.userType || 'spotify';
     newUser.uniqueHash = uuid.v4();
     newUser.generateHash(req.body.password, 8, function (err, hash) {
       if (err) {
@@ -87,7 +87,7 @@ module.exports = function(router, passport) {
     delete newUserData.email;
     delete newUserData.password;
     newUser.email = req.body.email;
-    newUser.userType = newUserData.userType;
+    newUser.userType = newUserData.userType || 'local';
     newUser.uniqueHash = uuid.v4();
     newUser.generateHash(req.body.password, 8, function (err, hash) {
       if (err) {
