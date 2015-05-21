@@ -108,12 +108,25 @@ describe('Playlist API', function() {
                 uri: 'barfoo2205'}})
         .end(function(err, res) {
           chai.request('localhost:3000')
-          .post('/api/playlist/search')
-          .send({searchString: 'Test', eat: testToken})
-          //.post(encodeURIComponent('/api/playlist/search?searchString=Test&eat=' + testToken))
+          .post('/api/playlist')
+          .send({eat: testToken,
+                id: testPlaylistID,
+                song: {
+                  artistName: "The Beatles",
+                  trackName: 'Lucy In The Sky With Diamonds',
+                  duration: '2:48',
+                  albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
+                  uri: 'barfoo2205'}})
           .end(function(err, res) {
-            idOfSongToDelete = res.body[0].songs[1];
-            done();
+            chai.request('localhost:3000')
+            .post('/api/playlist/search')
+            .send({searchString: 'Test', eat: testToken})
+            //.post(encodeURIComponent('/api/playlist/search?searchString=Test&eat=' + testToken))
+            .end(function(err, res) {
+              idOfSongToDelete = res.body[0].songs[1];
+              //console.log(res.body[0].songs);
+              done();
+            });
           });
         });
       });
@@ -127,7 +140,7 @@ describe('Playlist API', function() {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(Array.isArray(res.body.songs)).to.eql(true);
-        expect(res.body.songs.length).to.eql(1);
+        expect(res.body.songs.length).to.eql(2);
         done();
       });
   });
