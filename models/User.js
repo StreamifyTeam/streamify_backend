@@ -3,9 +3,10 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var eat = require('eat');
+var uuid = require('uuid');
 var userSchema = mongoose.Schema({
 	username: { type: String, unique: true },
-	email: { type: String },
+	email: { type: String, default: 'no email provided' },
 	password: String,
 	userType: String,
 	favorites: [],
@@ -13,8 +14,6 @@ var userSchema = mongoose.Schema({
 	uniqueHash: String
 });
 
-//npm install uuid
-//timestamp
 
 userSchema.methods.generateHash = function(password, salt, next) {
 	bcrypt.genSalt(salt, function(err, salt) {
@@ -42,7 +41,7 @@ userSchema.methods.checkPassword = function(password, cb) {
 };
 
 userSchema.methods.generateToken = function(secret, callback) {
-	eat.encode({id: this._id, timestamp: Date.now()}, secret, callback);
+	eat.encode({id: this.uniqueHash, timestamp: Date.now()}, secret, callback);
 };
 
 userSchema.methods.owns = function(obj) {
@@ -54,9 +53,5 @@ userSchema.methods.addToFavorites = function(fav, next) {
 	this.favorites.push(fav);
 	next();
 };
-
-userSchema.path('userType').validate(function(value) {
-	return /spotify|local/i.test(value);
-}, 'Invalid userType');
 
 module.exports = mongoose.model('User', userSchema);
