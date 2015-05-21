@@ -14,12 +14,11 @@ module.exports = function(router) {
   router.use(bodyparser.json());
 
   //Finds all playlists with a certain word (or words) in its name
-  //send GET to /api/playlist/search
+  //send POST to /api/playlist/search
   //http headers: searchString=searchstring, eat=token
-  router.get('/playlist/search', eatAuth, function(req, res) {
-    console.log(req.query);
+  router.post('/playlist/search', eatAuth, function(req, res) {
     //basic regular expression: true if playlist name contains our string
-    Playlist.find({name: new RegExp(req.query.searchString, 'i')},
+    Playlist.find({name: new RegExp(req.body.searchString, 'i')},
     function(err, data) {
       if (err) {
         console.log(err);
@@ -30,9 +29,9 @@ module.exports = function(router) {
   });
 
   //Gets all of a user's playlists
-  //send GET to /api/playlist/mine
+  //send POST to /api/playlist/mine
   //message body: {eat: token}
-  router.get('/playlist/mine', eatAuth, function(req, res) {
+  router.post('/playlist/mine', eatAuth, function(req, res) {
     Playlist.find({createdBy: req.user._id}, function(err, data) {
       if (err) {
         console.log(err);
@@ -43,9 +42,9 @@ module.exports = function(router) {
   });
 
   //Gets all playlists a user is contributing to
-  //send GET to /api/playlist/contrib
+  //send POST to /api/playlist/contrib
   //message body: {eat: token}
-  router.get('/playlist/contrib', eatAuth, function(req, res) {
+  router.post('/playlist/contrib', eatAuth, function(req, res) {
     Playlist.find({'collaborators.$': req.user._id}, function(err, data) {
       if (err) {
         console.log(err);
