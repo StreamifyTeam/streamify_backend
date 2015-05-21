@@ -20,8 +20,40 @@ module.exports = function(router, passport) {
 
   router.get('/user/fav', eatAuth, function(req, res) {
 
-    res.json({msg: 'Favorites: ' + req.user.favorites});
+    res.json(req.user.favorites);
   });
+
+  // router.get('/user/sign_in/:token', function(req, res) {
+
+
+  // 	console.log(req.params.token);
+  // 	console.log(req.query);
+		// res.json({msg: 'hello world'});
+
+		// req.user.generateToken(process.env.APP_SECRET, function (err, token) {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({msg: 'error generating token'});
+  //     }
+  //     res.json({email: req.user.email, username: req.user.username, token: token});
+  //   });
+
+		// User.findOne({username: newUserData.username}, function(err, data) { 
+		// 	if(data) {
+
+  //     data.generateToken(process.env.APP_SECRET, function(err, token) {
+  //       if(err) {
+  //         console.log(err);
+  //         return res.status(500).json({msg: 'error generating token'});
+  //       }
+
+  //       res.json({email: newUserData.email, username: newUserData.username, token: token});
+  //     });
+		// 	} else {
+		// 		return res.status(500).json({msg: 'token invalid'});
+		// 	}
+		// });
+  // });
 
   router.post('/user/spotify_user', function(req, res) {
   	var newUserData = JSON.parse(JSON.stringify(req.body));
