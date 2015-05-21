@@ -22,6 +22,7 @@ module.exports = function (router) {
             var artist = {};
             artist.id = data.id;
             artist.name = data.name;
+            artist.uri = data.uri;
             artist.popularity = data.popularity;
             if(data.images[0]) artist.url = data.images[0].url;
             results.push(artist);
@@ -48,6 +49,7 @@ module.exports = function (router) {
               var artist = {};
               artist.id = data.id;
               artist.name = data.name;
+              artist.uri = data.uri;
               artist.popularity = data.popularity;
               if(data.images[0]) artist.url = data.images[0].url;
               results.push(artist);
@@ -72,6 +74,7 @@ module.exports = function (router) {
               var artist = {};
               artist.id = data.id;
               artist.name = data.name;
+              artist.uri = data.uri;
               artist.popularity = data.popularity;
               if(data.images[0]) artist.url = data.images[0].url;
               results.push(artist);

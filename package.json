@@ -1,6 +1,9 @@
 {
   "name": "streamify_backend",
   "version": "0.1.0",
+  "engines": {
+    "node": "0.10.35"
+  },
   "description": "code fellows project",
   "main": "lib/server.js",
   "directories": {
@@ -29,7 +32,7 @@
     "mocha": "^2.2.4"
   },
   "scripts": {
-    "start": "node lib/server.js",
+    "start": "node server.js",
     "test": "./node_modules/grunt-cli/bin/grunt test"
   },
   "repository": {
