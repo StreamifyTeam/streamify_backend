@@ -184,8 +184,8 @@ module.exports = function(router) {
   //Update playlist - POST with collaborators, or song to add
   //send POST to /api/playlist/
   //message body: {name: "playlistname", song: {songObject}}
-  router.post('/playlist', function(req, res) {
-    res.json({msg: 'unimplemented'});
-  });
+  //router.post('/playlist', function(req, res) {
+   // res.json({msg: 'unimplemented'});
+  //});
 
 };
