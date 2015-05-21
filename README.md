@@ -58,7 +58,7 @@ Favorites:
 | name       |  string  |  Name of the Playlist; not unique |
 | songs      |  Array of Songs |  Songs in the playlist; Stored as: [_id, _id...]  |
 | collaborators   |  Array of Users  |  Stored as: [_id, _id...] |
-| dateCreated   |  Date  |   |
+| dateCreated   |  String  |   |
 | createdBy  |  string  |  User's name (not user id) |
 
 #####Example
@@ -76,19 +76,27 @@ API: (currently getting updated to authenticate users)
 
   GET:
     Search for playlists:
-      /api/playlist/ get {searchString: "search string"}
+      /api/playlist/search get {searchString: "search string", eat: token}
+        Responds with an array of all playlist objects.
+    Get a user's playlists:
+      /api/playlist/mine get {eat: token}
+        Responds with an array of all owned playlist objects.
 
   POST:
     Create playlist:
-      /api/create_playlist/ post {name: "playlistname"}
+      /api/create_playlist/ post {name: "playlistname",  eat: token}
+        Responds with the created playlist object.
     Add song to playlist:
-      /api/playlist/ post {id: playlistID, song: spotifySongID}
+      /api/playlist/ post {id: playlistID, song: spotifySongObject, eat: token}
+        Responds with the object {msg: 'success'}
 
   DELETE:
     Delete playlist:
-      /api/delete_playlist/ del {id: playlistID}
+      /api/delete_playlist/ del {id: playlistID, eat: token}
+        Responds with the object {msg: 'success'}
     Delete song from playlist:
-      /api/playlist/ del {name: "playlistname", song: spotifySongID}
+      /api/playlist/ del {name: "playlistname", song: streamifySongID, eat: token}
+        Responds with the updated playlist.
 
 ```
 
