@@ -20,7 +20,9 @@ module.exports = function(router){
 
 	//find a song by spotifyID
 	router.get('/songs/:id', function(req, res) {
+		console.log('Finding a song by spotifyID');
 		Song.findOne({spotifyID: req.params.id}, function(err, data){
+			console.log('Finished looking for a song by spotifyID');
 			if(err){
 				console.log(err);
 				return res.status(500).json({msg: 'internal server error'});
