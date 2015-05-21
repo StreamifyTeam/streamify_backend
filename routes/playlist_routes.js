@@ -98,7 +98,7 @@ module.exports = function(router) {
       var options = {
         host: 'localhost',
         port: 3000,
-        path: '/api/songs/' + req.body.uri,
+        path: '/api/songs/' + req.body.song.uri,
         method: 'GET',
         headers: {
           "Content-Type": "application/json"
@@ -106,48 +106,54 @@ module.exports = function(router) {
       };
 
       var req2 = http.request(options, function(res2) {
-        //If the song wasn't present in the Songs database, add a new entry
-        if (!res2.spotifyID) //(this can be any of the properties we have in songs in our database)
-        {
-          var songBody =
-            {artist: req.body.song.artistName,
-             name: req.body.song.trackName,
-             duration: req.body.song.duration,
-             album: req.body.song.albumName,
-             spotifyID: req.body.song.uri};
-          options.path = '/api/songs';
-          options.method = 'POST';
-          var req3 = http.request(options, function(res3) {
-            //add the new song's ID to our playlist and save it
-            // Continuously update stream with data
-            var body = '';
-            res3.on('data', function(data) {body += data;});
-            res3.on('end', function() {
-              pl.addSong(JSON.parse(body)._id);
-              pl.save(function(err) {
-                if (err) {
-                  console.log(err);
-                  return res.status(500).json({msg: 'internal server error'});
-                }
-                res.json({msg: 'success'});
-              }); //end save
-            });//end response
-          });
-          req3.write(JSON.stringify(songBody));
-          req3.end();
-        }
-        else //The song WAS present in the Songs database
-        {
-          //add the song's ID to our playlist and save it
-          pl.addSong(res._id);
-          pl.save(function(err) {
-            if (err) {
-              console.log(err);
-              return res.status(500).json({msg: 'internal server error'});
-            }
-            res.json({msg: 'success'});
-          }); //end save
-        }
+        var body2 = '';
+        res2.on('data', function(data) { body2 += data;});
+        res2.on('end', function(data) {
+          console.log(JSON.parse(body2));
+          //If the song wasn't present in the Songs database, add a new entry
+          if (!JSON.parse(body2)) //(this can be any of the properties we have in songs in our database)
+          {
+            var songBody =
+              {artist: req.body.song.artistName,
+               name: req.body.song.trackName,
+               duration: req.body.song.duration,
+               album: req.body.song.albumName,
+               spotifyID: req.body.song.uri,
+               album_artwork_url: req.body.song.albumArtworkURL};
+            options.path = '/api/songs';
+            options.method = 'POST';
+            var req3 = http.request(options, function(res3) {
+              //add the new song's ID to our playlist and save it
+              // Continuously update stream with data
+              var body3 = '';
+              res3.on('data', function(data) {body3 += data;});
+              res3.on('end', function() {
+                pl.addSong(JSON.parse(body3)._id);
+                pl.save(function(err) {
+                  if (err) {
+                    console.log(err);
+                    return res.status(500).json({msg: 'internal server error'});
+                  }
+                  res.json({msg: 'success'});
+                }); //end save
+              });//end response
+            });
+            req3.write(JSON.stringify(songBody));
+            req3.end();
+          }
+          else //The song WAS present in the Songs database
+          {
+            //add the song's ID to our playlist and save it
+            pl.addSong(JSON.parse(body2)._id);
+            pl.save(function(err) {
+              if (err) {
+                console.log(err);
+                return res.status(500).json({msg: 'internal server error'});
+              }
+              res.json({msg: 'success'});
+            }); //end save
+          }
+        });
       }); //end GET request
       req2.end();
     }); //end findOne
