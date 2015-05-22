@@ -23,9 +23,9 @@ describe('Song REST api', function() {
 			.send({artist: 'CodeFellows', name: 'JavaScript1', album: 'Summer', spotifyID: 'spotifyID1'})
 			.end(function(err, res) {
 				expect(err).to.eql(null);
-				expect(res.body.artist).to.eql('CodeFellows');
-				expect(res.body.spotifyID).to.eql('spotifyID1');
-				expect(res.body).to.have.property('_id');
+				expect(res.body.msg.artist).to.eql('CodeFellows');
+				expect(res.body.msg.spotifyID).to.eql('spotifyID1');
+				expect(res.body.msg).to.have.property('_id');
 				done();
 			});
 	});
@@ -36,9 +36,9 @@ describe('Song REST api', function() {
 			.send({artist: 'CodeFellows', name: 'JavaScript2', album: 'Summer', spotifyID: 'spotifyID2'})
 			.end(function(err, res) {
 				expect(err).to.eql(null);
-				expect(res.body.artist).to.eql('CodeFellows');
-				expect(res.body.spotifyID).to.eql('spotifyID2');
-				expect(res.body).to.have.property('_id');
+				expect(res.body.msg.artist).to.eql('CodeFellows');
+				expect(res.body.msg.spotifyID).to.eql('spotifyID2');
+				expect(res.body.msg).to.have.property('_id');
 				done();
 			});
 	});
