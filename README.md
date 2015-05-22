@@ -91,7 +91,7 @@ API: (currently getting updated to authenticate users)
       /api/delete_playlist/ del {id: playlistID, eat: token}
         Responds with the object {msg: 'success'}
     Delete song from playlist:
-      /api/playlist/ del {name: "playlistname", song: streamifySongID, eat: token}
+      /api/playlist/ del {id: playlistID, song: streamifySongID, eat: token}
         Responds with the updated playlist.
 
 ```
