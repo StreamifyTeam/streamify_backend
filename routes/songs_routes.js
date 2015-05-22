@@ -58,8 +58,6 @@ module.exports = function(router){
 						console.log(err);
 						return res.status(500).json({msg: 'internal server error'});
 					}
-
-					data2.returnID = data2._id;
 					res.json({msg: data2});
 				});
 			}
