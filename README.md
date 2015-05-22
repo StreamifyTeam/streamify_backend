@@ -112,13 +112,13 @@ Get all songs:
 	GET: /api/songs get
 
 Find a song by spotifyID
-	GET: /api/songs/SPOTIFYID get
+	GET: /api/songs/555e7a05ca30cc00685c3bb6 get
   return: a Song object
 Add a new song:
 	POST: /api/songs post {artist: 'CodeFellows', name: 'JavaScript', album: 'Summer', duration: '3:00', spotifyID: 'test spotify id'}
 
 Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
-  POST: /api/songs/arrayID post '["spotifyID1", "spotifyID2"]'
+  POST: localhost:3000/api/songs/arrayID post '["555e7a05ca30cc00685c3bb6","555e7a13ca30cc00685c3bb8"]'
   return song objects:
    { msg: 
    [ { _id: '555e57db9d62474b58eeef0b',
