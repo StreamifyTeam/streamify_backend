@@ -25,8 +25,7 @@ playlistSchema.methods.removeSong = function(songId) {
   });
 };
 playlistSchema.methods.playNextSong = function() {
-  this.songs.pop(); //remove previous track
-  return this.songs[0];
+  return this.songs.shift(); //remove previous track
 };
 playlistSchema.methods.randomize = function() {
 
