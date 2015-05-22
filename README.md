@@ -107,7 +107,6 @@ API: (currently getting updated to authenticate users)
 | coverArt  |  string  |  URL to coverArt |
 | spotifyID  |  string  |  URL to Spotify, unique|
 | album_artwork_url  |  string  |  URL to album artwork, unique|
-| returnID  |  string  |  mongo ID|
 
 ```
 
@@ -125,8 +124,7 @@ Add a new song:
     if not exists, song is added and return the song JSON
 
   { msg: 
-   { returnID: '555eb44020d5038e7e1983c9',
-     __v: 0,
+   { __v: 0,
      artist: 'CodeFellows9',
      name: 'JavaScript9',
      album: 'Summer',
