@@ -60,12 +60,11 @@ module.exports = function(router){
 					}
 
 					data2.returnID = data2._id;
-					console.log(data2.returnID);
-					res.json(data2);
+					res.json({msg: data2});
 				});
 			}
 			else
-				res.json(data1);
+				res.json({msg: data1});
 		});
 	});
 
