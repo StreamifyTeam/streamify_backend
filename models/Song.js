@@ -7,7 +7,8 @@ var songSchema = mongoose.Schema({
 	duration: String,
 	album: String,
 	spotifyID: {type: String, unique: true},
-	album_artwork_url: {type: String, unique: true}
+	album_artwork_url: {type: String, unique: true},
+	returnID: String
 });
 
 module.exports = mongoose.model('Song', songSchema);
