@@ -84,36 +84,24 @@ describe('Playlist API', function() {
       .post('/api/playlist')
       .send({eat: testToken,
             id: testPlaylistID,
-            artistName: "The Beatles",
-            trackName: 'With A Little Help From My Friends',
-            duration: '3:02',
-            albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
-            uri: 'foobar39103'})
+            song: '4362dsg9374gq398gy43gwq9y'})
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.body.msg).to.eql('success');
 
-        //Add one more song for the next test
+        //Add two more songs for the next test
         chai.request('localhost:3000')
         .post('/api/playlist')
         .send({eat: testToken,
               id: testPlaylistID,
-              artistName: "The Beatles",
-              trackName: 'Lucy In The Sky With Diamonds',
-              duration: '2:48',
-              albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
-              uri: 'barfoo2205'})
+              song: 'i3ugyu43gt34hjtgk3kgh3'})
         .end(function(err, res) {
           chai.request('localhost:3000')
           .post('/api/playlist')
           .send({eat: testToken,
                 id: testPlaylistID,
-                artistName: "The Beatles",
-                trackName: 'Lucy In The Sky With Diamonds',
-                duration: '2:48',
-                albumName: 'Sgt. Pepper\'s Lonely Hearts Club Band',
-                uri: 'barfoo2205'})
+                song: 'i3ugyu43gt34hjtgk3kgh3'})
           .end(function(err, res) {
             chai.request('localhost:3000')
             .post('/api/playlist/search')
@@ -162,5 +150,5 @@ describe('Playlist API', function() {
         });
       });
   });
-
+ 
 }); //end describe

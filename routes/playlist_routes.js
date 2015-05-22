@@ -90,87 +90,21 @@ module.exports = function(router) {
   //send POST to /api/playlist/
   //message body: {eat: token, id: playlistID, song: spotifySong}
   router.post('/playlist', eatAuth, function(req, res) {
-    console.log(req.body);
-    console.log('Made it to the function.');
     Playlist.findOne({_id: req.body.id}, function(err, pl) {
       if (err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
       }
-      console.log('Found the playlist.');
-      //console.log("ADD SONG BODY: ");
-      //console.log(req.body);
-      var options = {
-        host: 'localhost',
-        port: 3000,
-        path: '/api/songs/' + req.body.uri,
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json"
+      //console.log('Found the playlist.');
+      //add the song's ID to our playlist and save it
+      pl.addSong(req.body.song);
+      pl.save(function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg: 'internal server error'});
         }
-      };
-      console.log('Created the song request options');
-      var req2 = http.request(options, function(res2) {
-        console.log('started the request function');
-        var body2 = '';
-        res2.on('data', function(data) { console.log('got data'); body2 += data;});
-        res2.on('end', function(data) {
-          console.log('Finished song request.');
-          //If the song wasn't present in the Songs database, add a new entry
-          if (!JSON.parse(body2)) //(this can be any of the properties we have in songs in our database)
-          {
-            console.log('Song wasn\'t in the database');
-            var songBody =
-              {artist: req.body.artistName,
-               name: req.body.trackName,
-               duration: req.body.duration,
-               album: req.body.albumName,
-               spotifyID: req.body.uri,
-               album_artwork_url: req.body.albumArtworkURL};
-            options.path = '/api/songs';
-            options.method = 'POST';
-            console.log('Making second song request');
-            var req3 = http.request(options, function(res3) {
-              //add the new song's ID to our playlist and save it
-              // Continuously update stream with data
-              var body3 = '';
-              res3.on('data', function(data) {body3 += data;});
-              res3.on('end', function() {
-                console.log('Finished second song request');
-                pl.addSong(JSON.parse(body3)._id);
-                console.log('About to save playlist with new song');
-                pl.save(function(err) {
-                  if (err) {
-                    console.log('Saved playlist with new song, or had an error');
-                    console.log(err);
-                    console.log('Was there an error right before this?');
-                    return res.status(500).json({msg: 'internal server error'});
-                  }
-                  res.json({msg: 'success'});
-                  console.log('success');
-                }); //end save
-              });//end response
-            });
-            console.log('I have no idea what this part of the code does.');
-            req3.write(JSON.stringify(songBody));
-            req3.end();
-          }
-          else //The song WAS present in the Songs database
-          {
-            console.log('Song already in database, adding ID to playlist.');
-            //add the song's ID to our playlist and save it
-            pl.addSong(JSON.parse(body2)._id);
-            pl.save(function(err) {
-              if (err) {
-                console.log(err);
-                return res.status(500).json({msg: 'internal server error'});
-              }
-              res.json({msg: 'success'});
-            }); //end save
-          }
-        });
-      }); //end GET request
-      req2.end();
+        res.json({msg: 'success'});
+      }); //end save
     }); //end findOne
   });
 
