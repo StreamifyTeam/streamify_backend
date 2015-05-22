@@ -121,15 +121,17 @@ Add a new song:
     if song exists, return the exist song JSON
     if not exists, song is added and return the song JSON
 
-  { returnID: '555eb219456913d77b13129a',
-  __v: 0,
-  artist: 'CodeFellows10',
-  name: 'JavaScript10',
-  album: 'Summer',
-  duration: '300',
-  spotifyID: 'id10',
-  album_artwork_url: '10',
-  _id: '555eb219456913d77b13129a' }
+  { msg: 
+   { returnID: '555eb44020d5038e7e1983c9',
+     __v: 0,
+     artist: 'CodeFellows9',
+     name: 'JavaScript9',
+     album: 'Summer',
+     duration: '300',
+     spotifyID: 'id9',
+     album_artwork_url: '9',
+     _id: '555eb44020d5038e7e1983c9' } }
+
 
 Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
   POST: localhost:3000/api/songs/arrayID post '["555e7a05ca30cc00685c3bb6","555e7a13ca30cc00685c3bb8"]'
