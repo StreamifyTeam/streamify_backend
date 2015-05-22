@@ -76,7 +76,7 @@ module.exports = function(router) {
   //send DEL to /api/delete_playlist/
   //message body: {id: playlistID, eat: token}
   router.delete('/delete_playlist', eatAuth, function(req, res) {
-    Playlist.remove({_id: req.params.id}, function(err, data) {
+    Playlist.remove({_id: req.body.id}, function(err, data) {
       if (err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
@@ -135,5 +135,26 @@ module.exports = function(router) {
   //router.post('/playlist', function(req, res) {
    // res.json({msg: 'unimplemented'});
   //});
+
+  //Play song - POST
+  //message body: {id: playlistId, eat: token}
+  //Returns the id of the next song of the playlist, and removes the song
+  router.post('/playlist/update', eatAuth, function(req, res) {
+    Playlist.findOne({_id: req.body.id}, function(err, pl) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({msg: 'internal server error'});
+      }
+      
+      var song = pl.playNextSong(req.body.song);
+      pl.save(function(err) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({msg: 'internal server error'});
+        }
+        res.json(song);
+      }); //end save
+    }); //end findOne
+  });
 
 };

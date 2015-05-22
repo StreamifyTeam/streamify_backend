@@ -126,6 +126,20 @@ describe('Playlist API', function() {
         expect(res.status).to.eql(200);
         expect(Array.isArray(res.body.songs)).to.eql(true);
         expect(res.body.songs.length).to.eql(2);
+        //console.log(res.body.songs);
+        done();
+      });
+  });
+
+   it('should be able to remove current song from and get next song on the playlist', function(done) {
+    chai.request('localhost:3000')
+      .post('/api/playlist/update')
+      .send({eat: testToken, id: testPlaylistID})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.status).to.eql(200);
+        expect(res.body).to.not.eql(idOfSongToDelete); //(this will need to be updated if we prevent duplicate songs)
+        //console.log(res.body.songs);
         done();
       });
   });
@@ -138,12 +152,15 @@ describe('Playlist API', function() {
         expect(err).to.eql(null);
         expect(res.status).to.eql(200);
         expect(res.body.msg).to.eql('success');
-        
+
         chai.request('localhost:3000')
         .post('/api/playlist/search')
         //.post(encodeURIComponent('/api/playlist/search?searchString=Magic&eat=' + testToken))
-        .send({searchString: 'Magic', eat: testToken})
+        .send({searchString: 'i', eat: testToken})
         .end(function(err, res) {
+          //console.log(res.body);
+          expect(err).to.eql(null);
+          expect(res.status).to.eql(200);
           expect(Array.isArray(res.body)).to.eql(true);
           expect(res.body.length).to.eql(1);
           done();
