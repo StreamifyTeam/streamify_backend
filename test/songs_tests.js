@@ -43,20 +43,6 @@ describe('Song REST api', function() {
 			});
 	});
 
-	it('should be able to get a song by spotifyID', function(done) {
-		chai.request('localhost:3000')
-			.get('/api/songs/spotifyID1')
-			.end(function(err, res) {
-				expect(err).to.eql(null);
-				expect(res.body.artist).to.eql('CodeFellows');
-				expect(res.body.name.toString()).to.eql('JavaScript1');
-				expect(res.body.spotifyID).to.eql('spotifyID1');
-				expect(res.body).to.have.property('_id');
-				done();
-			});
-
-	});
-
 	it('should be able to get an array of songs', function(done) {
 		chai.request('localhost:3000')
 			.get('/api/songs')
@@ -64,19 +50,6 @@ describe('Song REST api', function() {
 				expect(err).to.eql(null);
 				expect(typeof res.body).to.eql('object');
 				expect(Array.isArray(res.body)).to.eql(true);
-				done();
-			});
-	});
-
-	it('should be able to get a list of songs by a list of songID', function(done) {
-		chai.request('localhost:3000')
-			.post('/api/songs/arrayID')
-			.send(["spotifyID1", "spotifyID2"])
-			.end(function(err, res){
-				console.log("hello1");
-				expect(err).to.eql(null);
-				for(var i = 0; i < res.body.length; i++)
-					expect(res.body.msg[i].spotifyID).to.eql('spotifyID' + (i + 1));
 				done();
 			});
 	});

@@ -11,31 +11,34 @@ module.exports = function(router){
 		Song.find({}, function(err, data){
 			if(err){
 				console.log(err);
-				return res.status(500).json({msg: 'unable to get all songs'});
+				return res.status(500).json({msg: 'internal server error'});
 			}
 
 			res.json(data);
 		});
 	});
 
-	//find a song by spotifyID
+	//find a song by a mongo id
 	router.get('/songs/:id', function(req, res) {
-		Song.findOne({spotifyID: req.params.id}, function(err, data){
+		console.log(req.params.id);
+		Song.findOne({'_id': req.params.id}, function(err, data){
 			if(err){
 				console.log(err);
-				return res.status(500).json({msg: 'unable to get a song by id'});
+				return res.status(500).json({msg: 'internal server error'});
 			}
 
-			res.json(data);
+			res.json({msg: data});
 		});
 	});
 
-	//find a list of song by a list of id
+	//find a list of song by a list of id (mongo id)
 	router.post('/songs/arrayID', function(req, res) {
-		Song.find({spotifyID: {$in: req.body}}, function(err, data){
+		var temp;
+		Song.find({'_id': {$in: req.body}}, function(err, data){
+			console.log('_id');
 			if(err){
 				console.log(err);
-				return res.status(500).json({msg: 'unable to get list of song'});
+				return res.status(500).json({msg: 'internal server error'});
 			}
 			res.json({msg: data});
 		});
@@ -47,7 +50,7 @@ module.exports = function(router){
 		newSong.save(function(err, data){
 			if(err){
 				console.log(err);
-				return res.status(500).json({msg: 'unable to add song'});
+				return res.status(500).json({msg: 'internal server error'});
 			}
 			res.json(data);
 		});
