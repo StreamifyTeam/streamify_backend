@@ -80,10 +80,7 @@ API: (currently getting updated to authenticate users)
       /api/create_playlist/ post {name: "playlistname",  eat: token}
         Responds with the created playlist object.
     Add song to playlist:
-      /api/playlist/ post {id: playlistID, eat: token, artistName: artistname,
-                          trackName: trackname, duration: duration,
-                          albumName: albumname, uri: spotifyURI,
-                          albumArtworkURL: albumArtworkURL}
+      /api/playlist/ post {id: playlistID, eat: token, song: streamifySongID}
         Responds with the object {msg: 'success'}
 
   DELETE:
