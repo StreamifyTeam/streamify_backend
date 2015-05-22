@@ -47,22 +47,25 @@ module.exports = function(router){
 	//add a new song
 	router.post('/songs', function(req, res) {
 		var newSong = new Song(req.body);
-		Song.findOne({spotifyID: newSong.spotifyID}, function(err, data){
+		Song.findOne({spotifyID: newSong.spotifyID}, function(err, data1){
 			if(err){
 				console.log(err);
 				return res.status(500).json({msg: 'internal server error'});
 			}
-			if(data)
-				res.json({msg: 'song exists'})
-			else{
-				newSong.save(function(err, data){
+			if(!data1){
+				newSong.save(function(err, data2){
 					if(err){
 						console.log(err);
 						return res.status(500).json({msg: 'internal server error'});
 					}
-					res.json({msg: data});
+
+					data2.returnID = data2._id;
+					console.log(data2.returnID);
+					res.json(data2);
 				});
 			}
+			else
+				res.json(data1);
 		});
 	});
 

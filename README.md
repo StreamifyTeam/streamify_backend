@@ -104,6 +104,7 @@ API: (currently getting updated to authenticate users)
 | coverArt  |  string  |  URL to coverArt |
 | spotifyID  |  string  |  URL to Spotify, unique|
 | album_artwork_url  |  string  |  URL to album artwork, unique|
+| returnID  |  string  |  mongo ID|
 
 ```
 
@@ -117,17 +118,18 @@ Find a song by spotifyID
 Add a new song:
   POST: /api/songs post {artist: 'CodeFellows4', name: 'JavaScript4', album: 'Summer', duration: '300', spotifyID: 'id4', album_artwork_url: "4"}
   return:
-    { msg: 'song exists' } if song exists 
-    
-    otherwise the json song object as below
-    { __v: 0,
-      artist: 'CodeFellows4',
-      name: 'JavaScript4',
-      album: 'Summer',
-      duration: '300',
-      spotifyID: 'id4',
-      album_artwork_url: '4',
-      _id: '555ea308df08856d7235c3a9' }
+    if song exists, return the exist song JSON
+    if not exists, song is added and return the song JSON
+
+    { _id: '555eb1cf456913d77b131298',
+    artist: 'CodeFellows9',
+    name: 'JavaScript9',
+    album: 'Summer',
+    duration: '300',
+    spotifyID: 'id9',
+    album_artwork_url: '9',
+    __v: 0 }
+
 
 Get a list of songs by a list of SPOTIFYID. I'm using a POST request instead of GET because GET request does not allow to pass in a json
   POST: localhost:3000/api/songs/arrayID post '["555e7a05ca30cc00685c3bb6","555e7a13ca30cc00685c3bb8"]'
