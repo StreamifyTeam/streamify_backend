@@ -82,6 +82,9 @@ API: (currently getting updated to authenticate users)
     Add song to playlist:
       /api/playlist/ post {id: playlistID, eat: token, song: streamifySongID}
         Responds with the object {msg: 'success'}
+    Remove first song:
+      /api/playlist/update post {id: playlistId, eat: token}
+        Removes the first song on the playlist, returns the streamify id of the next one.
 
   DELETE:
     Delete playlist:
